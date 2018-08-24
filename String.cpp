@@ -39,6 +39,10 @@ Unsigned integral type
 Alias of one of the fundamental unsigned integer types.
 It is a type able to represent the size of any object in bytes: size_t is the type returned by the sizeof operator and is widely used in the standard library to represent sizes and counts.
 //****************************************************************************************************************************************
+#std::string::npos
+  
+string::npos is a constant (probably -1) representing a non-position. It's returned by method find when the pattern was not found.
+//****************************************************************************************************************************************
 #std::string::find
 
 Searches the string for the first occurrence of the sequence specified by its arguments.
@@ -111,13 +115,118 @@ Edit & Run
 Output:
 think live in details.
 //****************************************************************************************************************************************
+#std::string::pop_back
+
+Erases the last character of the string, effectively reducing its length by one.
+
+#include <iostream>
+#include <string>
+
+int main ()
+{
+  std::string str ("hello world!");
+  str.pop_back();
+  std::cout << str << '\n';
+  return 0;
+}
+
+Output:
+hello world
+//****************************************************************************************************************************************
+#std::string::append
+
+Extends the string by appending additional characters at the end of its current value
+
+#include <iostream>
+#include <string>
+
+int main ()
+{
+  std::string str;
+  std::string str2="Writing ";
+  std::string str3="print 10 and then 5 more";
+
+  str.append(str2);                       // "Writing "
+  str.append(str3,6,3);                   // "10 "
+  str.append("dots are cool",5);          // "dots "
+  str.append("here: ");                   // "here: "
+  str.append(10u,'.');                    // ".........."
+  str.append(str3.begin()+8,str3.end());  // " and then 5 more"
+  str.append<int>(5,0x2E);                // "....."
+
+  std::cout << str << '\n';
+  return 0;
+}
+
+Output:
+Writing 10 dots here: .......... and then 5 more.....
 
 //****************************************************************************************************************************************
+#std::string::insert
+
+Inserts additional characters into the string right before the character indicated by pos (or p)
+
+#include <iostream>
+#include <string>
+
+int main ()
+{
+  std::string str="to be question";
+  std::string str2="the ";
+  std::string str3="or not to be";
+  std::string::iterator it;
+
+  // used in the same order as described above:
+  str.insert(6,str2);                 // to be (the )question
+  str.insert(6,str3,3,4);             // to be (not )the question
+  str.insert(10,"that is cool",8);    // to be not (that is )the question
+  str.insert(10,"to be ");            // to be not (to be )that is the question
+  str.insert(15,1,':');               // to be not to be(:) that is the question
+  it = str.insert(str.begin()+5,','); // to be(,) not to be: that is the question
+  str.insert (str.end(),3,'.');       // to be, not to be: that is the question(...)
+  str.insert (it+2,str3.begin(),str3.begin()+3); // (or )
+
+  std::cout << str << '\n';
+  return 0;
+}
+
+Output:
+to be, or not to be: that is the question...
 
 //****************************************************************************************************************************************
+#std::string::resize()
+  
+resize() lets you change the number of characters. Here are we will describe two syntaxes supported by std::string::resize() 
+  
+#include <iostream>
+#include <string>
+using namespace std;
+  
+// Function to demonstrate insert
+void resizeDemo(string str)
+{
+  
+    // Resizes str to a string with
+    // 5 initial charcters only 
+    str.resize(5);
+    cout << "Using resize : ";
+    cout << str;
+}
+ 
+// Driver code
+int main()
+{
+    string str("GeeksforGeeks ");
+  
+    cout << "Original String : " << str << endl;
+    resizeDemo(str);
+  
+    return 0;
+}
 
-//****************************************************************************************************************************************
-
+Output:
+Original String : GeeksforGeeks 
+Using resize : Geeks
 //****************************************************************************************************************************************
 
 //****************************************************************************************************************************************
